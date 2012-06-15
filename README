@@ -1,0 +1,82 @@
+NAME
+    Data::Dumper::Declare - Data::Dumper, sweetened with Devel::Declare
+
+SYNOPSIS
+      use Data::Dumper::Declare;
+      print Dumper($account_data);
+
+DESCRIPTION
+    This module provides a "Dumper" function much the same as the
+    Data::Dumper "Dumper" function, but thanks to a bit of Devel::Declare
+    magic, it knows the variable names passed to it, so rather than printing
+    something like:
+
+      $VAR1 = {
+        balance => 42.00
+      };
+
+    It will print:
+
+      $account_data = {
+        balance => 42.00
+      };
+
+    It can be passed arrays and hashes directly, with no need to create a
+    reference to them...
+
+      my @foo = qw(1 2 3);
+      print Dumper(@foo);
+
+    will print...
+
+      @foo = (
+        1,
+        2,
+        3
+      );
+
+    This module is nowhere near as stable, mature and well-understoof as
+    Data::Dumper; but on the other hand, as it's mostly for use in debugging
+    code, and not production code, it's probably stable enough.
+
+  XXX Comptability
+    This module also offers an XXX workalike mode, supporting "WWW", "XXX",
+    "YYY" and "ZZZ" functions.
+
+      use Data::Dumper::Declare -xxx;
+  
+      sub greeting {
+        my $greeting = 'Hello';
+        return WWW($greeting); # prints warning
+      }
+  
+      my $bar = greeting(); # $bar is now "Hello"
+
+  Exports
+    Exports only "Dumper" by default. This module uses Sub::Exporter
+    allowing you to rename functions quite easily:
+
+      use Data::Dumper::Declare
+        Dumper  => { -as => 'DUMP' };
+
+BUGS
+    Please report any bugs to
+    <http://rt.cpan.org/Dist/Display.html?Queue=Data-Dumper-Declare>.
+
+SEE ALSO
+    Data::Dumper, XXX, Devel::Assert.
+
+AUTHOR
+    Toby Inkster <tobyink@cpan.org>.
+
+COPYRIGHT AND LICENCE
+    This software is copyright (c) 2012 by Toby Inkster.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+DISCLAIMER OF WARRANTIES
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+    MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
